@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop2: Consume API</title>
+    <script>
+        const completed = (response) => {
+            const data = response.target.responseText;
+            document.getElementById('resultado').innerHTML = data;
+        };
+
+        const error = () => console.log(this.responseText);
+
+        function getExchange() {
+            const currency = document.getElementById('type').value;
+            const ajaxRequest = new XMLHttpRequest();
+            ajaxRequest.addEventListener("load", completed);
+            ajaxRequest.addEventListener("error", error);
+            ajaxRequest.open("GET", `http://localhost:3001/Tipocambio?type=${currency}`);
+            ajaxRequest.send();
+        }
+    </script>
+</head>
+
+<body>
+    <select id="type">
+        <option value="all">Todo</option>
+        <option value="eur">Euros</option>
+        <option value="usd">Dolares</option>
+    </select>
+    <button onclick="getExchange();">Tipo de Cambio</button>
+    <h3>Resultados</h3>
+    <div id="resultado"></div>
+</body>
+
+</html>
